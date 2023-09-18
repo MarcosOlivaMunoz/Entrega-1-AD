@@ -1,7 +1,95 @@
 ---
 title: "Entrega 1"
-author: "Marcos Oliva y Hugo García"
+subtitle: "Análisis exploratorio de los datos `penguins` utilizando R base"
+author:
+  - "Marcos Oliva"
+  - "Hugo García"
 date: 09/13/2023
 format: html
-editor: visual
+lang: ES
 ---
+
+# Introducción
+
+En las siguientes secciones, vamos a hacer una análisis exploratorio sobre el dataset `penguins`, proveniente de la librería `"palmerpenguins"`.
+
+## Sobre los datos
+
+El dataset contienen los datos de 344 pingüinos. Hay 3 especies diferentes de pingüinos en este, conseguidos de 3 islas en el Archipiélago Palmer, ubicado en la Antártida.
+
+```{r Intro}
+library("palmerpenguins")
+print(penguins, width = 50)
+```
+
+## Variables
+
+Este dataset tiene 8 variables diferentes, que explicaremos a continuación:
+
+-   `species`: Este es un dato cualitativo que muestra la especie del pingüino. Hay 3 diferentes: *Adelie*, *Chinstrap* y *Gentoo*.
+-   `island`: Este es un dato cualitativo que muestra la isla de la cual proviene el pingüino. Hay 3 diferentes: Biscoe, Dream y Torgersen.
+-   `bill_length_mm`: Este es un dato cuantitativo contínuo que muestra la longitud del pico del pingüino.
+-   `bill_depth_mm`: Este es un dato cuantitativo contínuo que muestra el grosor del pico del pingüino.
+-   `flipper_length_mm`: Este es un dato cuantitativo contínuo que muestra la longitud de las aletas del pingüino.
+-   `body_mass_g`: Este es un dato cuantitativo contínuo que muestra el peso del pingüino en gramos.
+-   `sex`: Este es un dato cualitativo que muestra el género del pingüino. Pueden ser macho o hembra.
+-   `year`: Este es un dato cuantitativo discreto que muestra el año de nacimiento del pingüino.
+
+# Análisis exploratorio
+
+```{r preload}
+df = penguins
+
+df.adelie = df[df$species=="Adelie",]
+df.chinstrap = df[df$species=="Chinstrap",]
+df.gentoo = df[df$species=="Gentoo",]
+```
+
+## Exploración sobre la población de pingüinos
+
+Estudiemos la población de pingüinos en cada isla.
+
+```{r islands1}
+table(df$species,df$island)
+barplot(table(df$island,df$species), legend.text = TRUE, beside = TRUE,
+        args.legend=list(x="topleft"))
+```
+
+Tenemos que hay 152 pingüinos *Adelie*, 68 pingüinos *Chinstrap* y 124 pingüinos *Gentoo*. Se puede apreciar que los pingüinos de la especie *Adelie* viven en todas las islas, mientras que el resto de especies viven en islas específicas. En concreto, solo podemos encontrar pingüinos *Chinstrap* en la isla de Dream y pingüinos *Gentoo* en la isla de Biscoe. Además, solo hay pingüinos *Adelie* en la isla de Torgersen.
+
+## Exploración sobre el pico
+
+Estudiemos \[insertar tema\].
+
+```{r}
+
+```
+
+## Exploración sobre las aletas
+
+Estudiemos \[insertar tema\].
+
+```{r}
+
+```
+
+## Exploración sobre el peso
+
+Estudiemos \[insertar tema\].
+
+```{r}
+
+```
+
+## Exploración sobre el sexo y el año de nacimiento
+
+Estudiemos el sexo y el año de nacimiento de los pingüinos.
+
+```{r sex&year1}
+table(df$sex, df$species)
+barplot(table(df$sex, df$species), legend.text=c("Hembra","Macho"), beside = TRUE, args.legend=list(x="top"))
+
+table(df$year, df$species)
+barplot(table(df$year, df$species), legend.text = TRUE, beside = TRUE, args.legend=list(x="top"))
+```
+

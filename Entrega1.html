@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ES" xml:lang="ES"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Marcos Oliva y Hugo García">
-<meta name="dcterms.date" content="2023-09-19">
+<meta name="author" content="Marcos Oliva">
+<meta name="author" content="Hugo García">
 
 <title>Entrega 1</title>
 <style>
@@ -82,6 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Entrega 1</h1>
+<p class="subtitle lead">Análisis exploratorio de los datos <code>penguins</code> utilizando R base</p>
 </div>
 
 
@@ -89,16 +90,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Autores/as</div>
     <div class="quarto-title-meta-contents">
-             <p>Marcos Oliva y Hugo García </p>
+             <p>Marcos Oliva </p>
+             <p>Hugo García </p>
           </div>
   </div>
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 19, 2023</p>
+      <p class="date">13 de septiembre de 2023</p>
     </div>
   </div>
   
@@ -108,26 +110,120 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="quarto" class="level2">
-<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<section id="introducción" class="level1">
+<h1>Introducción</h1>
+<p>En las siguientes secciones, vamos a hacer una análisis exploratorio sobre el dataset <code>penguins</code>, proveniente de la librería <code>"palmerpenguins"</code>.</p>
+<section id="sobre-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="sobre-los-datos">Sobre los datos</h2>
+<p>El dataset contienen los datos de 344 pingüinos. Hay 3 especies diferentes de pingüinos en este, conseguidos de 3 islas en el Archipiélago Palmer, ubicado en la Antártida.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"palmerpenguins"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(penguins, <span class="at">width =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_length_mm bill_depth_mm
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Adelie  Torgersen           39.1          18.7
+ 2 Adelie  Torgersen           39.5          17.4
+ 3 Adelie  Torgersen           40.3          18  
+ 4 Adelie  Torgersen           NA            NA  
+ 5 Adelie  Torgersen           36.7          19.3
+ 6 Adelie  Torgersen           39.3          20.6
+ 7 Adelie  Torgersen           38.9          17.8
+ 8 Adelie  Torgersen           39.2          19.6
+ 9 Adelie  Torgersen           34.1          18.1
+10 Adelie  Torgersen           42            20.2
+# ℹ 334 more rows
+# ℹ 4 more variables: flipper_length_mm &lt;int&gt;,
+#   body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
 </section>
-<section id="running-code" class="level2">
-<h2 class="anchored" data-anchor-id="running-code">Running Code</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="variables" class="level2">
+<h2 class="anchored" data-anchor-id="variables">Variables</h2>
+<p>Este dataset tiene 8 variables diferentes, que explicaremos a continuación:</p>
+<ul>
+<li><code>species</code>: Este es un dato cualitativo que muestra la especie del pingüino. Hay 3 diferentes: <em>Adelie</em>, <em>Chinstrap</em> y <em>Gentoo</em>.</li>
+<li><code>island</code>: Este es un dato cualitativo que muestra la isla de la cual proviene el pingüino. Hay 3 diferentes: Biscoe, Dream y Torgersen.</li>
+<li><code>bill_length_mm</code>: Este es un dato cuantitativo contínuo que muestra la longitud del pico del pingüino.</li>
+<li><code>bill_depth_mm</code>: Este es un dato cuantitativo contínuo que muestra el grosor del pico del pingüino.</li>
+<li><code>flipper_length_mm</code>: Este es un dato cuantitativo contínuo que muestra la longitud de las aletas del pingüino.</li>
+<li><code>body_mass_g</code>: Este es un dato cuantitativo contínuo que muestra el peso del pingüino en gramos.</li>
+<li><code>sex</code>: Este es un dato cualitativo que muestra el género del pingüino. Pueden ser macho o hembra.</li>
+<li><code>year</code>: Este es un dato cuantitativo discreto que muestra el año de nacimiento del pingüino.</li>
+</ul>
+</section>
+</section>
+<section id="análisis-exploratorio" class="level1">
+<h1>Análisis exploratorio</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> penguins</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df.adelie <span class="ot">=</span> df[df<span class="sc">$</span>species<span class="sc">==</span><span class="st">"Adelie"</span>,]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df.chinstrap <span class="ot">=</span> df[df<span class="sc">$</span>species<span class="sc">==</span><span class="st">"Chinstrap"</span>,]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df.gentoo <span class="ot">=</span> df[df<span class="sc">$</span>species<span class="sc">==</span><span class="st">"Gentoo"</span>,]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>You can add options to executable code like this</p>
+<section id="exploración-sobre-la-población-de-pingüinos" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-sobre-la-población-de-pingüinos">Exploración sobre la población de pingüinos</h2>
+<p>Estudiemos la población de pingüinos en cada isla.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>species,df<span class="sc">$</span>island)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
+<pre><code>           
+            Biscoe Dream Torgersen
+  Adelie        44    56        52
+  Chinstrap      0    68         0
+  Gentoo       124     0         0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(df<span class="sc">$</span>island,df<span class="sc">$</span>species), <span class="at">legend.text =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend=</span><span class="fu">list</span>(<span class="at">x=</span><span class="st">"topleft"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/islands1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The <code>echo: false</code> option disables the printing of code (only output is displayed).</p>
+<p>Tenemos que hay 152 pingüinos <em>Adelie</em>, 68 pingüinos <em>Chinstrap</em> y 124 pingüinos <em>Gentoo</em>. Se puede apreciar que los pingüinos de la especie <em>Adelie</em> viven en todas las islas, mientras que el resto de especies viven en islas específicas. En concreto, solo podemos encontrar pingüinos <em>Chinstrap</em> en la isla de Dream y pingüinos <em>Gentoo</em> en la isla de Biscoe. Además, solo hay pingüinos <em>Adelie</em> en la isla de Torgersen.</p>
+</section>
+<section id="exploración-sobre-el-pico" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-sobre-el-pico">Exploración sobre el pico</h2>
+<p>Estudiemos [insertar tema].</p>
+</section>
+<section id="exploración-sobre-las-aletas" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-sobre-las-aletas">Exploración sobre las aletas</h2>
+<p>Estudiemos [insertar tema].</p>
+</section>
+<section id="exploración-sobre-el-peso" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-sobre-el-peso">Exploración sobre el peso</h2>
+<p>Estudiemos [insertar tema].</p>
+</section>
+<section id="exploración-sobre-el-sexo-y-el-año-de-nacimiento" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-sobre-el-sexo-y-el-año-de-nacimiento">Exploración sobre el sexo y el año de nacimiento</h2>
+<p>Estudiemos el sexo y el año de nacimiento de los pingüinos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>sex, df<span class="sc">$</span>species)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         Adelie Chinstrap Gentoo
+  female     73        34     58
+  male       73        34     61</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(df<span class="sc">$</span>sex, df<span class="sc">$</span>species), <span class="at">legend.text=</span><span class="fu">c</span>(<span class="st">"Hembra"</span>,<span class="st">"Macho"</span>), <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">args.legend=</span><span class="fu">list</span>(<span class="at">x=</span><span class="st">"top"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/sex&amp;year1-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>year, df<span class="sc">$</span>species)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      
+       Adelie Chinstrap Gentoo
+  2007     50        26     34
+  2008     50        18     46
+  2009     52        24     44</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(df<span class="sc">$</span>year, df<span class="sc">$</span>species), <span class="at">legend.text =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">args.legend=</span><span class="fu">list</span>(<span class="at">x=</span><span class="st">"top"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/sex&amp;year1-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
 </section>
 
 </main>
@@ -186,12 +282,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiado");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiado");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
