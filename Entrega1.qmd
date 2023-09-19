@@ -9,7 +9,6 @@ format: html
 lang: ES
 ---
 
-<<<<<<< HEAD
 # Introducción
 
 En las siguientes secciones, vamos a hacer una análisis exploratorio sobre el dataset `penguins`, proveniente de la librería `"palmerpenguins"`.
@@ -39,20 +38,16 @@ Este dataset tiene 8 variables diferentes, que explicaremos a continuación:
 
 # Análisis exploratorio
 
-```{r preload}
-=======
 ```{r, message = FALSE}
 # Cargamos las librerías requeridas
 library("tidyverse")
 library("palmerpenguins")
 # Copiamos el dataframe sobre el cual vamos a trabajar
->>>>>>> 816e058 (Tabla todo junto)
 df = penguins
 
 df.adelie = df[df$species=="Adelie",]
 df.chinstrap = df[df$species=="Chinstrap",]
 df.gentoo = df[df$species=="Gentoo",]
-<<<<<<< HEAD
 ```
 
 ## Exploración sobre la población de pingüinos
@@ -170,7 +165,7 @@ boxplot(df$body_mass_g~df$species,xlab="Especie",ylab="peso (g)",
 Proseguimos creando una tabla con las media, medianas y desviaciones típicas de los datos cuantitativos por especie:
 
 ```{r, message = FALSE}
-tab <- matrix(c(media1.1,media2.1,media3.1,mediana1.1,mediana2.1,mediana3.1,sd1.1,sd2.1,sd3.1,media1.2,media2.2,media3.2,mediana1.2,mediana2.2,mediana3.2,sd1.2,sd2.2,sd3.2, media1.3,media2.3,media3.3,mediana1.3,mediana2.3,mediana3.3,sd1.3,sd2.3,sd3.3, media1.4,media2.4,media3.4,mediana1.4,mediana2.4,mediana3.4,sd1.4,sd2.4,sd3.4), ncol=3 , byrow=TRUE)
+tab <- matrix(round(c(media1.1,media2.1,media3.1,mediana1.1,mediana2.1,mediana3.1,sd1.1,sd2.1,sd3.1,media1.2,media2.2,media3.2,mediana1.2,mediana2.2,mediana3.2,sd1.2,sd2.2,sd3.2, media1.3,media2.3,media3.3,mediana1.3,mediana2.3,mediana3.3,sd1.3,sd2.3,sd3.3, media1.4,media2.4,media3.4,mediana1.4,mediana2.4,mediana3.4,sd1.4,sd2.4,sd3.4),3), ncol=3 , byrow=TRUE)
 
 rownames(tab) <- c('Media longitud pico en mm:', 'Mediana longitud pico en mm:','Desviación típica longitud pico en mm:', 'Media profundidad pico en mm:', 'Mediana profundidad pico en mm:','Desviación típica profundidad pico en mm:','Media longitud aletas en mm:', 'Mediana longitud aletas en mm:','Desviación típica longitud aletas en mm:','Media peso en g:', 'Mediana peso en g:','Desviación típica peso en g:')
 
