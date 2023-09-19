@@ -100,5 +100,5 @@ colnames(tab) <- c('Adelie', 'Chinstrap', 'Gentoo')
 tab <- as.table(tab)
 tab
 
-#Revisar long aletas no cuadra
+
 ```
