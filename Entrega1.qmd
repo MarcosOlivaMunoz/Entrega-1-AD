@@ -1,22 +1,80 @@
 ---
 title: "Entrega 1"
-author: "Marcos Oliva y Hugo García"
+subtitle: "Análisis exploratorio de los datos `penguins` utilizando R base"
+author:
+  - "Marcos Oliva"
+  - "Hugo García"
 date: 09/13/2023
 format: html
-editor: visual
+lang: ES
 ---
 
+<<<<<<< HEAD
+# Introducción
+
+En las siguientes secciones, vamos a hacer una análisis exploratorio sobre el dataset `penguins`, proveniente de la librería `"palmerpenguins"`.
+
+## Sobre los datos
+
+El dataset contienen los datos de 344 pingüinos. Hay 3 especies diferentes de pingüinos en este, conseguidos de 3 islas en el Archipiélago Palmer, ubicado en la Antártida.
+
+```{r Intro}
+#yo esto lo quitaría
+library("palmerpenguins")
+print(penguins, width = 50)
+```
+
+## Variables
+
+Este dataset tiene 8 variables diferentes, que explicaremos a continuación:
+
+-   `species`: Este es un dato cualitativo que muestra la especie del pingüino. Hay 3 diferentes: *Adelie*, *Chinstrap* y *Gentoo*.
+-   `island`: Este es un dato cualitativo que muestra la isla de la cual proviene el pingüino. Hay 3 diferentes: Biscoe, Dream y Torgersen.
+-   `bill_length_mm`: Este es un dato cuantitativo contínuo que muestra la longitud del pico del pingüino.
+-   `bill_depth_mm`: Este es un dato cuantitativo contínuo que muestra el grosor del pico del pingüino.
+-   `flipper_length_mm`: Este es un dato cuantitativo contínuo que muestra la longitud de las aletas del pingüino.
+-   `body_mass_g`: Este es un dato cuantitativo contínuo que muestra el peso del pingüino en gramos.
+-   `sex`: Este es un dato cualitativo que muestra el género del pingüino. Pueden ser macho o hembra.
+-   `year`: Este es un dato cuantitativo discreto que muestra el año de nacimiento del pingüino.
+
+# Análisis exploratorio
+
+```{r preload}
+=======
 ```{r, message = FALSE}
 # Cargamos las librerías requeridas
 library("tidyverse")
 library("palmerpenguins")
 # Copiamos el dataframe sobre el cual vamos a trabajar
+>>>>>>> 816e058 (Tabla todo junto)
 df = penguins
 
 df.adelie = df[df$species=="Adelie",]
 df.chinstrap = df[df$species=="Chinstrap",]
 df.gentoo = df[df$species=="Gentoo",]
+<<<<<<< HEAD
+```
 
+## Exploración sobre la población de pingüinos
+
+Estudiemos la población de pingüinos en cada isla.
+
+```{r islands1}
+table(df$species,df$island)
+barplot(table(df$island,df$species), legend.text = TRUE, beside = TRUE,
+        args.legend=list(x="topleft"))
+```
+
+Tenemos que hay 152 pingüinos *Adelie*, 68 pingüinos *Chinstrap* y 124 pingüinos *Gentoo*. Se puede apreciar que los pingüinos de la especie *Adelie* viven en todas las islas, mientras que el resto de especies viven en islas específicas. En concreto, solo podemos encontrar pingüinos *Chinstrap* en la isla de Dream y pingüinos *Gentoo* en la isla de Biscoe. Además, solo hay pingüinos *Adelie* en la isla de Torgersen.
+
+Para facilitar la visualización de todos los datos cuantitativos hemos decido utilizar boxplot ya que muestra la mayor cantidad de información.
+Después comentaremos todos los datos cuantitativos con una tabla.
+
+## Exploración sobre el pico
+
+Estudiemos la longitud del pico primero y luego continuaremos con su profundidad:
+
+```{r,message = FALSE}
 #longitud pico:
 #Adeline
 media1.1 = mean(df.adelie$bill_length_mm, na.rm = TRUE)
@@ -54,6 +112,16 @@ mediana3.2=median(df.gentoo$bill_depth_mm, na.rm = TRUE)
 boxplot(df$bill_depth_mm~df$species,xlab="Especie",ylab="Profundidad pico (mm)",
         main="Profundidad de pico por especie")
 
+
+```
+
+
+
+## Exploración sobre las aletas
+
+Acontinuación mostraremos la longitud de las aletas por especie:
+
+```{r,message=FALSE}
 #longitud de aletas:
 #Adeline
 media1.3=mean(df.adelie$flipper_length_mm, na.rm = TRUE)
@@ -72,6 +140,13 @@ mediana3.3=median(df.gentoo$flipper_length_mm, na.rm = TRUE)
 
 boxplot(df$flipper_length_mm~df$species,xlab="Especie",ylab="Longitud aletas (mm)",
         main="Longitud de aletas por especie")
+```
+
+## Exploración sobre el peso
+
+Nuestro último dato cuantitativo se trata del peso:
+
+```{r, message =FALSE}
 #peso
 #Adeline
 media1.4=mean(df.adelie$body_mass_g, na.rm = TRUE)
@@ -91,7 +166,10 @@ mediana3.4=median(df.gentoo$body_mass_g, na.rm = TRUE)
 
 boxplot(df$body_mass_g~df$species,xlab="Especie",ylab="peso (g)",
         main="Peso por especie")
+```
+Proseguimos creando una tabla con las media, medianas y desviaciones típicas de los datos cuantitativos por especie:
 
+```{r, message = FALSE}
 tab <- matrix(c(media1.1,media2.1,media3.1,mediana1.1,mediana2.1,mediana3.1,sd1.1,sd2.1,sd3.1,media1.2,media2.2,media3.2,mediana1.2,mediana2.2,mediana3.2,sd1.2,sd2.2,sd3.2, media1.3,media2.3,media3.3,mediana1.3,mediana2.3,mediana3.3,sd1.3,sd2.3,sd3.3, media1.4,media2.4,media3.4,mediana1.4,mediana2.4,mediana3.4,sd1.4,sd2.4,sd3.4), ncol=3 , byrow=TRUE)
 
 rownames(tab) <- c('Media longitud pico en mm:', 'Mediana longitud pico en mm:','Desviación típica longitud pico en mm:', 'Media profundidad pico en mm:', 'Mediana profundidad pico en mm:','Desviación típica profundidad pico en mm:','Media longitud aletas en mm:', 'Mediana longitud aletas en mm:','Desviación típica longitud aletas en mm:','Media peso en g:', 'Mediana peso en g:','Desviación típica peso en g:')
@@ -100,6 +178,20 @@ colnames(tab) <- c('Adelie', 'Chinstrap', 'Gentoo')
 tab <- as.table(tab)
 tab
 
+```
+Como podemos observar, la especie más grande se trata de la especie *Gentoo* de la que debemos destacar que pese a esto se trata de la especie con menor profundidad de pico. Esto puede ser debido a una dieta distinta al resto de especies lo que explicaría que sólo habiten en una isla en concreto.
+
+Proseguimos comparando las especies *Adelie* y *Chinstrap*. Ambas son muy similares en peso y profundidad de pico, pese a esto la especie *Chinstrap* tiene una longitud de aletas un poco superior y destaca frente a la especie *Adelie* por su longitud de pico aproximadamente 10cm superior incluso superando a la especie *Gentoo* por poco.
 
 
+## Exploración sobre el sexo y el año de nacimiento
+
+Estudiemos el sexo y el año de nacimiento de los pingüinos.
+
+```{r sex&year1}
+table(df$sex, df$species)
+barplot(table(df$sex, df$species), legend.text=c("Hembra","Macho"), beside = TRUE, args.legend=list(x="top"))
+
+table(df$year, df$species)
+barplot(table(df$year, df$species), legend.text = TRUE, beside = TRUE, args.legend=list(x="top"))
 ```
