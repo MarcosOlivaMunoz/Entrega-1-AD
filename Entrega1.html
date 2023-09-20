@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -112,32 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introducción" class="level1">
 <h1>Introducción</h1>
-<p>En las siguientes secciones, vamos a hacer una análisis exploratorio sobre el dataset <code>penguins</code>, proveniente de la librería <code>"palmerpenguins"</code>.</p>
+<p>En las siguientes secciones, vamos a hacer una análisis exploratorio sobre el dataset <code>penguins</code>, proveniente de la librería <code>"palmerpenguins"</code>. Para acceder al repositorio de GitHub de esta entrega, haga clic <a href="https://github.com/MarcosOlivaMunoz/Entrega-1-AD.git">aquí</a></p>
 <section id="sobre-los-datos" class="level2">
 <h2 class="anchored" data-anchor-id="sobre-los-datos">Sobre los datos</h2>
 <p>El dataset contienen los datos de 344 pingüinos. Hay 3 especies diferentes de pingüinos en este, conseguidos de 3 islas en el Archipiélago Palmer, ubicado en la Antártida.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"palmerpenguins"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(penguins, <span class="at">width =</span> <span class="dv">50</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 344 × 8
-   species island    bill_length_mm bill_depth_mm
-   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
- 1 Adelie  Torgersen           39.1          18.7
- 2 Adelie  Torgersen           39.5          17.4
- 3 Adelie  Torgersen           40.3          18  
- 4 Adelie  Torgersen           NA            NA  
- 5 Adelie  Torgersen           36.7          19.3
- 6 Adelie  Torgersen           39.3          20.6
- 7 Adelie  Torgersen           38.9          17.8
- 8 Adelie  Torgersen           39.2          19.6
- 9 Adelie  Torgersen           34.1          18.1
-10 Adelie  Torgersen           42            20.2
-# ℹ 334 more rows
-# ℹ 4 more variables: flipper_length_mm &lt;int&gt;,
-#   body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
-</div>
-</div>
 </section>
 <section id="variables" class="level2">
 <h2 class="anchored" data-anchor-id="variables">Variables</h2>
@@ -156,18 +100,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="análisis-exploratorio" class="level1">
 <h1>Análisis exploratorio</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> penguins</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df.adelie <span class="ot">=</span> df[df<span class="sc">$</span>species<span class="sc">==</span><span class="st">"Adelie"</span>,]</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df.chinstrap <span class="ot">=</span> df[df<span class="sc">$</span>species<span class="sc">==</span><span class="st">"Chinstrap"</span>,]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df.gentoo <span class="ot">=</span> df[df<span class="sc">$</span>species<span class="sc">==</span><span class="st">"Gentoo"</span>,]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="exploración-sobre-la-población-de-pingüinos" class="level2">
 <h2 class="anchored" data-anchor-id="exploración-sobre-la-población-de-pingüinos">Exploración sobre la población de pingüinos</h2>
 <p>Estudiemos la población de pingüinos en cada isla.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>species,df<span class="sc">$</span>island)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           
             Biscoe Dream Torgersen
@@ -175,42 +111,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   Chinstrap      0    68         0
   Gentoo       124     0         0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(df<span class="sc">$</span>island,df<span class="sc">$</span>species), <span class="at">legend.text =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend=</span><span class="fu">list</span>(<span class="at">x=</span><span class="st">"topleft"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Entrega1_files/figure-html/islands1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Tenemos que hay 152 pingüinos <em>Adelie</em>, 68 pingüinos <em>Chinstrap</em> y 124 pingüinos <em>Gentoo</em>. Se puede apreciar que los pingüinos de la especie <em>Adelie</em> viven en todas las islas, mientras que el resto de especies viven en islas específicas. En concreto, solo podemos encontrar pingüinos <em>Chinstrap</em> en la isla de Dream y pingüinos <em>Gentoo</em> en la isla de Biscoe. Además, solo hay pingüinos <em>Adelie</em> en la isla de Torgersen.</p>
 </section>
-<section id="exploración-sobre-el-pico" class="level2">
-<h2 class="anchored" data-anchor-id="exploración-sobre-el-pico">Exploración sobre el pico</h2>
-<p>Estudiemos [insertar tema].</p>
-</section>
-<section id="exploración-sobre-las-aletas" class="level2">
-<h2 class="anchored" data-anchor-id="exploración-sobre-las-aletas">Exploración sobre las aletas</h2>
-<p>Estudiemos [insertar tema].</p>
-</section>
-<section id="exploración-sobre-el-peso" class="level2">
-<h2 class="anchored" data-anchor-id="exploración-sobre-el-peso">Exploración sobre el peso</h2>
-<p>Estudiemos [insertar tema].</p>
+<section id="exploración-sobre-los-datos-cuantitativos" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-sobre-los-datos-cuantitativos">Exploración sobre los datos cuantitativos</h2>
+<p>Para facilitar la visualización de todos los datos cuantitativos hemos decido utilizar boxplot ya que muestra la mayor cantidad de información. Después comentaremos todos los datos cuantitativos con una tabla.</p>
+<p>Estudiemos la longitud del pico primero y luego continuaremos con su profundidad:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>A continuación mostraremos la longitud de las aletas por especie:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Nuestro último dato cuantitativo se trata del peso:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Entrega1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Proseguimos creando una tabla con las media, medianas y desviaciones típicas de los datos cuantitativos por especie:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                                            Adelie Chinstrap   Gentoo
+Media longitud pico en mm:                  38.791    48.834   47.505
+Mediana longitud pico en mm:                38.800    49.550   47.300
+Desviación típica longitud pico en mm:       2.663     3.339    3.082
+Media profundidad pico en mm:               18.346    18.421   14.982
+Mediana profundidad pico en mm:             18.400    18.450   15.000
+Desviación típica profundidad pico en mm:    1.217     1.135    0.981
+Media longitud aletas en mm:               189.954   195.824  217.187
+Mediana longitud aletas en mm:             190.000   196.000  216.000
+Desviación típica longitud aletas en mm:     6.539     7.132    6.485
+Media peso en g:                          3700.662  3733.088 5076.016
+Mediana peso en g:                        3700.000  3700.000 5000.000
+Desviación típica peso en g:               458.566   384.335  504.116</code></pre>
+</div>
+</div>
+<p>Como podemos observar, la especie más grande se trata de la especie <em>Gentoo</em> de la que debemos destacar que pese a esto se trata de la especie con menor profundidad de pico. Esto puede ser debido a una dieta distinta al resto de especies lo que explicaría que sólo habiten en una isla en concreto.</p>
+<p>Proseguimos comparando las especies <em>Adelie</em> y <em>Chinstrap</em>. Ambas son muy similares en peso y profundidad de pico, pese a esto la especie <em>Chinstrap</em> tiene una longitud de aletas un poco superior y destaca frente a la especie <em>Adelie</em> por su longitud de pico aproximadamente 10cm superior incluso superando a la especie <em>Gentoo</em> por poco.</p>
 </section>
 <section id="exploración-sobre-el-sexo-y-el-año-de-nacimiento" class="level2">
 <h2 class="anchored" data-anchor-id="exploración-sobre-el-sexo-y-el-año-de-nacimiento">Exploración sobre el sexo y el año de nacimiento</h2>
 <p>Estudiemos el sexo y el año de nacimiento de los pingüinos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>sex, df<span class="sc">$</span>species)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        
          Adelie Chinstrap Gentoo
   female     73        34     58
   male       73        34     61</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(df<span class="sc">$</span>sex, df<span class="sc">$</span>species), <span class="at">legend.text=</span><span class="fu">c</span>(<span class="st">"Hembra"</span>,<span class="st">"Macho"</span>), <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">args.legend=</span><span class="fu">list</span>(<span class="at">x=</span><span class="st">"top"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Entrega1_files/figure-html/sex&amp;year1-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>year, df<span class="sc">$</span>species)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      
        Adelie Chinstrap Gentoo
@@ -218,11 +182,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   2008     50        18     46
   2009     52        24     44</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(df<span class="sc">$</span>year, df<span class="sc">$</span>species), <span class="at">legend.text =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">args.legend=</span><span class="fu">list</span>(<span class="at">x=</span><span class="st">"top"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Entrega1_files/figure-html/sex&amp;year1-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Se puede observar que no hay una diferencia significativa, ni entre los machos y las hembras, ni en el año de nacimiento, de las diferentes especies.</p>
 </section>
 </section>
 
