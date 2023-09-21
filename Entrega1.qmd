@@ -165,7 +165,7 @@ tab
 ```
 Como podemos observar, la especie más grande se trata de la especie *Gentoo* de la que debemos destacar que pese a esto se trata de la especie con menor profundidad de pico. Esto puede ser debido a una dieta distinta al resto de especies lo que explicaría que sólo habiten en una isla en concreto.
 
-Proseguimos comparando las especies *Adelie* y *Chinstrap*. Ambas son muy similares en peso y profundidad de pico, pese a esto la especie *Chinstrap* tiene una longitud de aletas un poco superior y destaca frente a la especie *Adelie* por su longitud de pico aproximadamente 10cm superior incluso superando a la especie *Gentoo* por poco.
+Proseguimos comparando las especies *Adelie* y *Chinstrap*. Ambas son muy similares en peso y profundidad de pico, pese a esto la especie *Chinstrap* tiene una longitud de aletas un poco superior. Esta especie destaca frente a la especie *Adelie* por su longitud de pico, aproximadamente 10cm superior, incluso superando a la especie *Gentoo* por poco.
 
 
 ## Exploración sobre el sexo y el año de nacimiento
